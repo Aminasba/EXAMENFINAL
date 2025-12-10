@@ -84,9 +84,11 @@ public class Agenda {
             Duration existingDuration = existingEvent.getDuration();
             LocalDateTime existingEnd = existingStart.plus(existingDuration);
             
-            boolean isOverlapping = newStart.isBefore(existingEnd) && existingStart.isBefore(newEnd);
+            // On vérifie s'il N'Y A PAS de chevauchement.
+            boolean isNotOverlapping = newEnd.isBefore(existingStart) || newEnd.isEqual(existingStart) || 
+                                       newStart.isAfter(existingEnd) || newStart.isEqual(existingEnd);
             
-            if (isOverlapping) {
+            if (!isNotOverlapping) {
                 return false;
             }
         }

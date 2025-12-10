@@ -4,7 +4,9 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +17,7 @@ public class SimpleEventTest {
     public static final String SIMPLE_EVENT = "Simple event";
     // November 1st, 2020
     LocalDate nov_1_2020 = LocalDate.of(2020, 11, 1);
+    LocalDate nov_2_2020 = LocalDate.of(2020, 11, 2);
 
     // November 1st, 2020, 22:30
     LocalDateTime nov_1_2020_22_30 = LocalDateTime.of(2020, 11, 1, 22, 30);
@@ -50,6 +53,15 @@ public class SimpleEventTest {
         assertFalse(simple.isInDay(nov_1_2020.plusDays(1)),   "Cet événement ne déborde pas sur le jour suivant");
         assertTrue(overlapping.isInDay(nov_1_2020.plusDays(1)),  "Cet événement déborde sur le jour suivant");
     }
+    
+    @Test
+    public void testEventDefaults() {
+        // Teste les getters ajoutés pour la couverture des branches non répétitives
+        assertEquals("Simple event", simple.getTitle());
+        assertNull(simple.getRepetition());
+        assertEquals(-1, simple.getNumberOfOccurrences());
+    }
+    
     @Test
     public void toStringShowsEventTitle() {
         assertTrue(simple.toString().contains(SIMPLE_EVENT),

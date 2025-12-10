@@ -89,10 +89,8 @@ public class FixedTerminationEventTest {
 
     @Test
     public void eventOccurs10WeeksAfter() {
-        // 9ème semaine, soit la 10ème occurrence pour fixedTermination (date de fin: 5 janv)
         assertTrue(fixedTermination.isInDay(nov_1_2020.plusWeeks(9)), 
             "Cet événement se produit toutes les semaines");
-        // 9ème semaine, soit la 10ème occurrence pour fixedRepetitions (nombre d'occ: 10)
         assertTrue(fixedRepetitions.isInDay(nov_1_2020.plusWeeks(9)),
             "Cet événement se produit toutes les semaines");
     }
@@ -110,5 +108,4 @@ public class FixedTerminationEventTest {
         assertFalse(fixedTermination.isInDay(nov_1_2020.plusWeeks(4)),
             "Cet événement ne se produit pas à W+4");
     }
-
 }

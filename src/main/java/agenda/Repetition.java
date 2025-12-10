@@ -2,15 +2,12 @@ package agenda;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.HashSet; // Nécessaire pour les exceptions
-import java.util.Set; // Nécessaire pour les exceptions
+import java.util.HashSet;
+import java.util.Set;
 
 public class Repetition {
     
-    
     private Set<LocalDate> myExceptions = new HashSet<>();
-    
-    
     private Termination myTermination = null;
     
     public ChronoUnit getFrequency() {
