@@ -1,2 +1,17 @@
 Ecrire ici votre réponse à la question UML.
+Pour que l’agenda fonctionne correctement,j'ai ajouté quelques  petites fonctions utiles permettant aux différentes classes de communiquer entre elles et de vérifier leur état.
+Dans Event : j'ai ajouté les methodes getRepetition(), getNumberOfOccurrences() et getTerminationDate(). Elles permettent d’accéder aux informations sur la répétition et la fin de l’événement, essentielles pour les tests et les calculs.
+Dans Repetition : j'ai ajouté isException(day) pour indiquer si une date donnée doit être ignorée, ainsi que de getTermination() pour accéder aux règles de fin de la répétition.
+Dans Termination : j'ai ajouté  deux fonctions privées internes (calculate...) qui effectuent les calculs inverses nécessaires — soit pour déterminer la date de fin à partir du nombre d’occurrences, soit pour calculer le nombre d’occurrences à partir de la date. Cela garantit le bon fonctionnement des deux types de terminaison.
+Dans Agenda : j'ai ajouté getEvents() afin que les tests puissent vérifier le contenu de l’agenda.
 
+Bon, pour comparer les deux modèles, j'ai surtout regardé ce qui est le plus pratique si on doit gérer l'agenda sur le long terme. Les deux solutions ont des avantages, mais une est beaucoup plus logique pour un agenda.
+le modèle de la  Figure 2 : La Composition (Ajouter des options)
+Elle utilise une seule classe de base (Event) et lui ajoute les options "Répétition" et "Terminaison".
+      Le Bon Côté c'est que 'est super flexible. Dans la vraie vie, un événement change souvent de statut (par exemple, une réunion ponctuelle devient hebdomadaire). Avec ce modèle, on n'a pas besoin de tout supprimer. On garde l'événement et on lui ajoute juste l'option Repetition. Ça simplifie la gestion des changements.
+  les inconvenients  : C'est que la fonction la plus importante (isInDay) doit faire tout le travail. Elle doit vérifier toutes les options à la fois, ce qui rend son code très long et compliqué.
+Quant a l'Autre Modèle (Figure 3) : L'Héritage (Changer de classe)
+Ce modèle crée plusieurs niveaux de classes spécialisées (simple, répétitif, avec fin).
+  Le Bon Côté : Le code est très clair et bien séparé. Si un événement est répétitif, c'est dans sa classe, point final. Les petites fonctions de vérification sont plus courtes dans chaque classe.
+  Les inconvenients qu'on peut dire c'est que c'est beaucoup trop rigide. Le type de l'objet est fixé au début. Si tu veux changer l'événement pour le rendre répétitif, tu es obligé de jeter l'ancien objet et d'en recréer un nouveau du bon type. C'est lourd et ça complique tout.
+Franchement, la solution de la Figure 2 (Composition) est la plus pertinente pour un agenda. Même si c'est plus difficile d'écrire la vérification de la date, mais un agenda doit pouvoir modifier facilement ses événements, et c'est beaucoup plus simple d'ajouter des options que de devoir recréer l'objet entier à chaque fois.
