@@ -1,12 +1,18 @@
 package agenda;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet; // Nécessaire pour les exceptions
+import java.util.Set; // Nécessaire pour les exceptions
 
 public class Repetition {
+    
+    
+    private Set<LocalDate> myExceptions = new HashSet<>();
+    
+    
+    private Termination myTermination = null;
+    
     public ChronoUnit getFrequency() {
         return myFrequency;
     }
@@ -31,7 +37,24 @@ public class Repetition {
      */
     public void addException(LocalDate date) {
         // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        myExceptions.add(date);
+    }
+    
+    /**
+     * Vérifie si le jour est une exception. (Ajouté pour la méthode isInDay d'Event)
+     * @param day La date à vérifier.
+     * @return true si c'est une exception.
+     */
+    public boolean isException(LocalDate day) {
+        return myExceptions.contains(day);
+    }
+    
+    /**
+     * Getter pour la terminaison (Ajouté pour la méthode isInDay d'Event)
+     * @return L'objet Termination associé.
+     */
+    public Termination getTermination() {
+        return myTermination;
     }
 
     /**
@@ -40,7 +63,6 @@ public class Repetition {
      */
     public void setTermination(Termination termination) {
         // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
-
+        this.myTermination = termination;
     }
 }

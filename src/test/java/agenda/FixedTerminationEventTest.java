@@ -50,46 +50,51 @@ public class FixedTerminationEventTest {
 
     @Test
     public void canCalculateNumberOfOccurrencesFromTerminationDate() {
+        // du 1er novembre 2020 au 5 janvier 2021 inclus (10 semaines de dim à dim)
         assertEquals(10, fixedTermination.getNumberOfOccurrences(),
-                "Cet événement doit se répéter 10 fois");
+            "Cet événement doit se répéter 10 fois");
     }
 
     @Test
     public void canCalculateTerminationDateFromNumberOfOccurrences() {
+        // 10 occurrences de dim à dim. La 10ème est le 3 janvier 2021.
         LocalDate termination = LocalDate.of(2021, 1, 3);
         assertEquals(termination, fixedRepetitions.getTerminationDate(),
-                "Cet événement doit se terminer le 3 janvier");
+            "Cet événement doit se terminer le 3 janvier");
     }
 
     @Test
     public void occursInTerminationDay() {
-        LocalDate lastDay = nov_1_2020.plusWeeks(9).plusDays(1);
+        // La 10ème occurrence est le 3 janvier 2021 (nov_1_2020.plusWeeks(9))
+        LocalDate lastDay = nov_1_2020.plusWeeks(9);
         assertTrue(fixedRepetitions.isInDay(lastDay),
-                "Cet événement a lieu le jour de sa terminaison");
+            "Cet événement a lieu le jour de sa terminaison");
     }
 
     @Test
     public void eventIsInItsStartDay() {
         assertTrue(fixedTermination.isInDay(nov_1_2020),
-                "Un événement a lieu dans son jour de début");
+            "Un événement a lieu dans son jour de début");
         assertTrue(fixedRepetitions.isInDay(nov_1_2020),
-                "Un événement a lieu dans son jour de début");
+            "Un événement a lieu dans son jour de début");
     }
 
     @Test
     public void eventIsNotInDayBefore() {
         assertFalse(fixedTermination.isInDay(nov_1_2020.minusDays(1)),
-                "Un événement n'a pas lieu avant son jour de début");
+            "Un événement n'a pas lieu avant son jour de début");
         assertFalse(fixedRepetitions.isInDay(nov_1_2020.minusDays(1)),
-                "Un événement n'a pas lieu avant son jour de début");
+            "Un événement n'a pas lieu avant son jour de début");
     }
 
     @Test
     public void eventOccurs10WeeksAfter() {
-        assertTrue(fixedTermination.isInDay(nov_1_2020.plusWeeks(9)),
-                "Cet événement se produit toutes les semaines");
+        // 9ème semaine, soit la 10ème occurrence pour fixedTermination (date de fin: 5 janv)
+        assertTrue(fixedTermination.isInDay(nov_1_2020.plusWeeks(9)), 
+            "Cet événement se produit toutes les semaines");
+        // 9ème semaine, soit la 10ème occurrence pour fixedRepetitions (nombre d'occ: 10)
         assertTrue(fixedRepetitions.isInDay(nov_1_2020.plusWeeks(9)),
-                "Cet événement se produit toutes les semaines");
+            "Cet événement se produit toutes les semaines");
     }
 
     @Test
@@ -97,13 +102,13 @@ public class FixedTerminationEventTest {
         fixedTermination.addException(nov_1_2020.plusWeeks(2)); // ne se produit pas à W+2
         fixedTermination.addException(nov_1_2020.plusWeeks(4)); // ne se produit pas à W+4
         assertTrue(fixedTermination.isInDay(nov_1_2020.plusWeeks(1)),
-                "Cet événement se produit toutes les semaines");
+            "Cet événement se produit toutes les semaines");
         assertFalse(fixedTermination.isInDay(nov_1_2020.plusWeeks(2)),
-                "Cet événement ne se produit pas à W+2");
+            "Cet événement ne se produit pas à W+2");
         assertTrue(fixedTermination.isInDay(nov_1_2020.plusWeeks(3)),
-                "Cet événement se produit toutes les semaines");
+            "Cet événement se produit toutes les semaines");
         assertFalse(fixedTermination.isInDay(nov_1_2020.plusWeeks(4)),
-                "Cet événement ne se produit pas à W+4");
+            "Cet événement ne se produit pas à W+4");
     }
 
 }

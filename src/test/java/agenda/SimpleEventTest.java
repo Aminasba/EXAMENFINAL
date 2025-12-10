@@ -1,14 +1,13 @@
 package agenda;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
 /**
  * Teste des événements simples, sans répétition
  */
@@ -48,7 +47,7 @@ public class SimpleEventTest {
 
     @Test
     public void overlappingEventIsInDayAfter() {
-        assertFalse(simple.isInDay(nov_1_2020.plusDays(1)),      "Cet événement ne déborde pas sur le jour suivant");
+        assertFalse(simple.isInDay(nov_1_2020.plusDays(1)),   "Cet événement ne déborde pas sur le jour suivant");
         assertTrue(overlapping.isInDay(nov_1_2020.plusDays(1)),  "Cet événement déborde sur le jour suivant");
     }
     @Test

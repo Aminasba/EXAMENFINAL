@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 public class AgendaTest {
     Agenda agenda;
 
-    // November 1st, 2020
+    // November 1st, 2020 (Dimanche)
     LocalDate nov_1_2020 = LocalDate.of(2020, 11, 1);
 
     // January 5, 2021
@@ -67,8 +67,11 @@ public class AgendaTest {
     @Test
     public void testMultipleEventsInDay() {
         assertEquals(4, agenda.eventsInDay(nov_1_2020).size(),
-                "Il y a 4 événements ce jour là");
+            "Il y a 4 événements ce jour là");
         assertTrue(agenda.eventsInDay(nov_1_2020).contains(neverEnding));
+        assertTrue(agenda.eventsInDay(nov_1_2020).contains(simple));
+        assertTrue(agenda.eventsInDay(nov_1_2020).contains(fixedTermination));
+        assertTrue(agenda.eventsInDay(nov_1_2020).contains(fixedRepetitions));
     }
 
 }
